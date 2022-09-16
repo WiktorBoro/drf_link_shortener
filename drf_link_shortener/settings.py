@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+HOST_URL = 'http://127.0.0.1:8000/'
+SHORTENED_LINK_ALIAS = 'sl/'
 
 # Application definition
 
@@ -38,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'main',
+    'main.apps.MainConfig',
     'constance',
     'constance.backends.database',
 
