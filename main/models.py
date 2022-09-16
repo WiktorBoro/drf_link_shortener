@@ -1,7 +1,8 @@
 from django.db import models
-from .valid_models import validate_links_scope, validate_links_length
-from .short_link_generator import short_link_generator
-from django.core.validators import MaxValueValidator, MinValueValidator
+from string import ascii_uppercase, ascii_lowercase, digits
+from random import choice
+from constance import config
+from django.conf import settings
 
 
 class UsersInfo(models.Model):
@@ -15,36 +16,47 @@ class UsersInfo(models.Model):
 
 
 class Links(models.Model):
-    user_info = models.ForeignKey(UsersInfo, on_delete=models.CASCADE)
-    original_link = models.CharField(max_length=255, unique=True)
-    shortened_link = models.CharField(default=short_link_generator(), max_length=100)
+    user_info = models.ForeignKey(UsersInfo, on_delete=models.PROTECT)
+    original_link = models.URLField(null=True, max_length=255)
+    shortened_link = models.URLField(null=True, max_length=100)
 
     objects = models.Manager()
+
+    def generate_short_link(self):
+        size = config.LENGTH
+        chars = str()
+
+        if config.LOWERCASE:
+            chars += ascii_lowercase
+        if config.DIGITS:
+            chars += digits
+        if config.UPPERCASE:
+            chars += ascii_uppercase
+
+        while True:
+            url = ''.join(choice(chars) for _ in range(size))
+            if not Links.objects.filter(shortened_link=url).exists():
+                break
+
+        return settings.HOST_URL + settings.SHORTENED_LINK_ALIAS + url
+
+    def save(self, *args, **kwargs):
+        if not self.shortened_link:
+            self.shortened_link = self.generate_short_link()
+
+        super().save(*args, **kwargs)
+
+        Statistic.objects.create(shortened_link_stat=Links.objects.get(shortened_link=self.shortened_link)).save()
 
     def __str__(self):
         return self.original_link
 
 
 class Statistic(models.Model):
-    shortened_link = models.ForeignKey(Links, on_delete=models.CASCADE)
-    numbers_of_visits_shortened_link = models.SmallIntegerField()
+    shortened_link_stat = models.ForeignKey(Links, on_delete=models.CASCADE)
+    numbers_of_visits_shortened_link = models.SmallIntegerField(default=0)
 
     objects = models.Manager()
 
     def __str__(self):
-        return self.shortened_link
-
-# class ShortenedLinkSettings(models.Model):
-#     length_of_the_shortened_link = models.SmallIntegerField(default=5,
-#                                                             validators=[
-#                                                                         MaxValueValidator(100),
-#                                                                         MinValueValidator(5)
-#                                                                         ])
-#     digits = models.BooleanField(default=True)
-#     uppercase = models.BooleanField(default=True)
-#     lowercase = models.BooleanField(default=True)
-#
-#     objects = models.Manager()
-
-
-
+        return self.shortened_link_stat.__str__()
