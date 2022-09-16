@@ -10,7 +10,6 @@ class CustomConfigForm(ConstanceForm):
 
 class ConfigAdmin(ConstanceAdmin):
     change_list_form = CustomConfigForm
-    change_list_template = 'admin/config/settings.html'
 
 
 # class LinksAdmin(admin.ModelAdmin):
