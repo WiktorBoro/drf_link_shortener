@@ -1,14 +1,13 @@
 from django.urls import include, path
 from rest_framework import routers
 from . import views
-from django.conf import settings
 
 router = routers.DefaultRouter(trailing_slash=False)
-router.register('shortener-link', views.LinkShortener, basename='Create Shortener Link')
+router.register('api/shortener-link', views.LinkShortener, basename='Create Shortener Link')
 
 
 urlpatterns = [
     path('', include(router.urls)),
-    path(f'{settings.SHORTENED_LINK_ALIAS}<str:shortened_link_id>', views.redirect,
+    path('<str:shortened_link_id>', views.redirect,
          name='Redirecting the shortened link to the original')
 ]

@@ -17,6 +17,7 @@ from django.urls import path, include
 from django.contrib import admin
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # it was necessary to add another level of url to avoid an error related to the structure of shortened url
+    path('admin/panel/', admin.site.urls),
     path('', include("main.urls")),
 ]
