@@ -38,7 +38,7 @@ class Links(models.Model):
             if not Links.objects.filter(shortened_link=url).exists():
                 break
 
-        return settings.HOST_URL + settings.SHORTENED_LINK_ALIAS + url
+        return settings.HOST_URL + url
 
     def save(self, *args, **kwargs):
         if not self.shortened_link:
@@ -59,4 +59,4 @@ class Statistic(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return self.shortened_link_stat.__str__()
+        return self.shortened_link_stat.shortened_link
