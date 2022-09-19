@@ -3,6 +3,7 @@ from .models import Links, Statistic, UsersInfo
 from constance.admin import ConstanceAdmin, ConstanceForm, Config
 
 
+# start config page module
 class CustomConfigForm(ConstanceForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -10,15 +11,15 @@ class CustomConfigForm(ConstanceForm):
 
 class ConfigAdmin(ConstanceAdmin):
     change_list_form = CustomConfigForm
+# end config page module
 
 
-# class LinksAdmin(admin.ModelAdmin):
-#     @admin.display(ordering='statistic__numbers_of_visits_shortened_link',
-#                    description='Link statistic')
-#     def get_link_statistic(self, obj):
-#         return obj.statistic.numbers_of_visits_shortened_link
-#
-#     fields = ['original_link', 'shortened_link', 'get_link_statistic']
+class StatisticAdmin(admin.ModelAdmin):
+    list_display = ['__str__', 'numbers_of_visits_shortened_link']
+
+
+class LinksAdmin(admin.ModelAdmin):
+    list_display = ['original_link', 'shortened_link']
 
 
 class LinksToUserAdmin(admin.TabularInline):
@@ -31,13 +32,11 @@ class UserInfoAdmin(admin.ModelAdmin):
     list_display = ['ip']
     inlines = [LinksToUserAdmin]
 
-#
-# class StatisticAdmin(admin.ModelAdmin):
-#     list_display = ['shortened_link', 'numbers_of_visits_shortened_link']
 
-
-admin.site.register(Links)
+admin.site.register(Links, LinksAdmin)
 admin.site.register(UsersInfo, UserInfoAdmin)
-admin.site.register(Statistic)
+admin.site.register(Statistic, StatisticAdmin)
+# start config page module
 admin.site.unregister([Config])
 admin.site.register([Config], ConfigAdmin)
+# end config page module
