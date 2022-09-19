@@ -23,11 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-q@qp%f$l*!gw(8x*j4xu^6t&m475_lhghwy!!*%yxq$ptztjb3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-HOST_URL = 'https://shorten-the-link1.herokuapp.com/'
+HOST_URL = 'http://127.0.0.1:8000/'
 
 # Application definition
 
@@ -142,5 +142,5 @@ CONSTANCE_CONFIG = {
 }
 
 
-import django_on_heroku
-django_on_heroku.settings(locals())
+# import django_on_heroku
+# django_on_heroku.settings(locals())

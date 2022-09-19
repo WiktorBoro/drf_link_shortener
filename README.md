@@ -1,6 +1,6 @@
 # Heroku deploy
 
-`link`
+`https://shorten-the-link1.herokuapp.com`
 
 ## Functions
 
