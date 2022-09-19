@@ -27,7 +27,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
-HOST_URL = 'http://127.0.0.1:8000/'
+HOST_URL = 'https://shorten-the-link1.herokuapp.com/'
 
 # Application definition
 
@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'constance',
     'constance.backends.database',
-
 ]
 
 MIDDLEWARE = [

@@ -1,1 +1,1 @@
-web: gunicorn image_upload.wsgi
+web: gunicorn drf_link_shortener.wsgi
