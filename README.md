@@ -38,8 +38,6 @@ In project folder run
 
 `docker-compose up`
 
-If after run docker-compose you have problem with connection to database, go to settings.py and rewrite HOST in database section
-
 ### Connect with docker container
 
 `docker-compose exec backend sh`
@@ -73,12 +71,15 @@ Go to the endpoint visualization
 http://localhost:8000/api/shortener-link
 
 Enter a sample link and click on a post
+
 ![img.png](readmeimages/img.png)
 
 Response with status 201
+
 ![img.png](readmeimages/img_1.png)
 
 If the same link is shortened again, return the same link with status 200
+
 ![img.png](readmeimages/img_2.png)
 
 ## Admin page details
