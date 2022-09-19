@@ -28,7 +28,6 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 HOST_URL = 'http://127.0.0.1:8000/'
-SHORTENED_LINK_ALIAS = 'sl/'
 
 # Application definition
 
@@ -142,3 +141,7 @@ CONSTANCE_CONFIG = {
     'UPPERCASE': (True, 'Links will contain uppercase letters', bool),
     'LOWERCASE': (True, 'Links will contain lowercase letters', bool),
 }
+
+
+import django_heroku
+django_heroku.settings(locals())
