@@ -49,6 +49,8 @@ In project folder run
 ### Migrate database
 In docker container run
 
+`python manage.py makemigrations main`
+
 `python manage.py migrate`
 
 ### Create superuser
