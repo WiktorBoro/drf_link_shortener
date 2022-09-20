@@ -43,7 +43,7 @@ class LinkShortener(viewsets.ViewSet):
 
         # If IP or User Agent for some reason cannot be downloaded,
         # it gives base values so as not to obstruct the script operation
-        ip = request.META.get('REMOTE_ADDR') or '0.0.0.0.0'
+        ip = request.META.get('HTTP_X_FORWARDED_FOR') or request.META.get('REMOTE_ADDR') or '0.0.0.0.0'
 
         user_agent = request.META.get('HTTP_USER_AGENT') or 'none'
 
