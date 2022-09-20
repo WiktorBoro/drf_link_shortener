@@ -65,6 +65,11 @@ On
 http://localhost:8000/admin/panel
 you have admin panel with all data
 
+### Run the test
+In docker container run
+
+`python manage.py test --verbosity 2`
+
 ## Example of use
 
 Go to the endpoint visualization
