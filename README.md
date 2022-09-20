@@ -31,6 +31,10 @@ In project folder run
 
 `git clone https://github.com/WiktorBoro/drf_link_shortener.git`
 
+### Install lib
+
+`pip install -r requirements.txt`
+
 ### Run docker-compose
 Make sure you have run your docker app!
 
