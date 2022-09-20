@@ -11,8 +11,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    links:
-      - db
 
   db:
     image: mysql:8.0
@@ -26,5 +24,5 @@ services:
       - ./data/db:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-      timeout: 40s
-      retries: 2
+      timeout: 120s
+      retries: 20
