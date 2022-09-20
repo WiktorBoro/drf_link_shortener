@@ -50,6 +50,7 @@ In project folder run
 In docker container run
 
 `python manage.py makemigrations`
+
 `python manage.py migrate`
 
 ### Create superuser
